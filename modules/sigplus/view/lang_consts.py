@@ -1,0 +1,18 @@
+from PyUB.Types import LangConstant
+
+ERROR = LangConstant("Common", "Error")
+LOCALE = LangConstant("Common", "Locale")
+LANGUAGE = LangConstant("Common", "Language")
+COUNTRY = LangConstant("Common", "Country")
+WITHOUT_LANG = LangConstant("Common", "Without language")
+ADD_LOCALE = LangConstant("Common", "Add Locale")
+INPUT_LOCALE = LangConstant("Common", "Input locale (for example: en-GB)")
+QUESTION = LangConstant("Common", "Question")
+ADD_FOR_OTHER = LangConstant("Common", "Add for other folders?")
+REPORT = LangConstant("Common", "Report")
+SAVING_REPORT = LangConstant("Common", "Saving Report.\nFiles modified: {modified}\nFiles created: {created}")
+
+CANNOT_LOAD_LABEL_FILE = LangConstant("Error", "Cannot load label file: {path}")
+NOT_CORRECT_LOCALE = LangConstant("Error", "Not correct locale")
+CANNOT_SAVE_LABEL_FILE = LangConstant("Error", "Cannot save label file: {path}")
+LOCALE_INCLUDED = LangConstant("Error", "The same locale already included")

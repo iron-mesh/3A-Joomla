@@ -1,0 +1,17 @@
+{
+  "name": "3A Joomla",
+  "description": "Provides tools to help you work with a Joomla website.",
+  "manual_url": "",
+  "version": "1.0.0",
+  "version_status": "",
+  "init_release_date": "2026-05-03",
+  "update_date": "2026-05-03",
+  "changelog_url": "",
+  "developer": "IronMesh",
+  "developer_email": "feedback@ironmesh.ru",
+  "developer_webpage": "https://ironmesh.ru",
+  "repository_url": "",
+  "forum_url": "",
+  "source_language": "en_GB",
+  "dependencies": []
+}

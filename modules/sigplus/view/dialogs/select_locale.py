@@ -1,9 +1,10 @@
-from PySide6.QtCore import QLocale, Qt
-from PySide6.QtWidgets import QDialog
 import re
 
-from ..forms.ui_select_locale_dialog import Ui_Dialog
+from PySide6.QtCore import QLocale, Qt
+from PySide6.QtWidgets import QDialog
+
 from .. import lang_consts
+from ..forms.ui_select_locale_dialog import Ui_Dialog
 
 
 class SelectLocale(QDialog):
@@ -45,6 +46,7 @@ class SelectLocale(QDialog):
                                           self.ui.territory_comboBox.currentData(Qt.ItemDataRole.UserRole))
         self.ui.locale_lineEdit.blockSignals(True)
         self.ui.locale_lineEdit.setText(locales[0].name())
+        self.ui.locale_lineEdit.selectAll()
         self.ui.locale_lineEdit.blockSignals(False)
 
     def _on_locale_changed(self, text):

@@ -1,30 +1,26 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'mainGzNWqG.ui'
+## Form generated from reading UI file 'mainPaVMuS.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt)
-from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-    QFont, QFontDatabase, QGradient, QIcon,
-    QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QAbstractScrollArea, QApplication, QComboBox, QFrame,
-    QHBoxLayout, QLabel, QLayout, QLineEdit,
-    QListWidget, QListWidgetItem, QPushButton, QSizePolicy,
-    QSpacerItem, QVBoxLayout, QWidget)
+from PySide6.QtCore import (QCoreApplication, QMetaObject, QRect,
+                            QSize, Qt)
+from PySide6.QtGui import (QIcon)
+from PySide6.QtWidgets import (QAbstractScrollArea, QCheckBox, QComboBox,
+                               QFrame, QHBoxLayout, QLabel, QLayout,
+                               QListWidget, QPushButton, QScrollArea,
+                               QSizePolicy, QSpacerItem, QVBoxLayout, QWidget)
 
 class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(1048, 780)
+        Form.resize(1012, 796)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -116,7 +112,7 @@ class Ui_Form(object):
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.file_list = QListWidget(Form)
         self.file_list.setObjectName(u"file_list")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Preferred)
+        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Ignored)
         sizePolicy3.setHorizontalStretch(0)
         sizePolicy3.setVerticalStretch(0)
         sizePolicy3.setHeightForWidth(self.file_list.sizePolicy().hasHeightForWidth())
@@ -172,10 +168,11 @@ class Ui_Form(object):
         self.image_label.setSizePolicy(sizePolicy5)
         self.image_label.setMinimumSize(QSize(0, 0))
         self.image_label.setScaledContents(False)
+        self.image_label.setWordWrap(False)
 
         self.horizontalLayout.addWidget(self.image_label)
 
-        self.horizontalSpacer_3 = QSpacerItem(0, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        self.horizontalSpacer_3 = QSpacerItem(0, 20, QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout.addItem(self.horizontalSpacer_3)
 
@@ -190,6 +187,7 @@ class Ui_Form(object):
         self.verticalLayout.addWidget(self.line)
 
         self.horizontalLayout_4 = QHBoxLayout()
+        self.horizontalLayout_4.setSpacing(10)
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
         self.horizontalLayout_4.setContentsMargins(0, 0, 0, 0)
         self.locales_comboBox = QComboBox(Form)
@@ -231,6 +229,11 @@ class Ui_Form(object):
 
         self.horizontalLayout_4.addWidget(self.delete_locale_btn)
 
+        self.show_all_locales_checkBox = QCheckBox(Form)
+        self.show_all_locales_checkBox.setObjectName(u"show_all_locales_checkBox")
+
+        self.horizontalLayout_4.addWidget(self.show_all_locales_checkBox)
+
         self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_4.addItem(self.horizontalSpacer)
@@ -241,15 +244,26 @@ class Ui_Form(object):
         self.verticalLayout_3 = QVBoxLayout()
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.verticalLayout_3.setContentsMargins(0, 7, 0, 7)
-        self.header_text = QLineEdit(Form)
-        self.header_text.setObjectName(u"header_text")
+        self.scrollArea = QScrollArea(Form)
+        self.scrollArea.setObjectName(u"scrollArea")
+        sizePolicy7 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Maximum)
+        sizePolicy7.setHorizontalStretch(0)
+        sizePolicy7.setVerticalStretch(0)
+        sizePolicy7.setHeightForWidth(self.scrollArea.sizePolicy().hasHeightForWidth())
+        self.scrollArea.setSizePolicy(sizePolicy7)
+        self.scrollArea.setMinimumSize(QSize(0, 0))
+        self.scrollArea.setFrameShape(QFrame.Shape.NoFrame)
+        self.scrollArea.setFrameShadow(QFrame.Shadow.Raised)
+        self.scrollArea.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)
+        self.scrollArea.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        self.scrollArea.setSizeAdjustPolicy(QAbstractScrollArea.SizeAdjustPolicy.AdjustToContents)
+        self.scrollArea.setWidgetResizable(True)
+        self.scrollAreaWidgetContents = QWidget()
+        self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 992, 69))
+        self.scrollArea.setWidget(self.scrollAreaWidgetContents)
 
-        self.verticalLayout_3.addWidget(self.header_text)
-
-        self.desc_text = QLineEdit(Form)
-        self.desc_text.setObjectName(u"desc_text")
-
-        self.verticalLayout_3.addWidget(self.desc_text)
+        self.verticalLayout_3.addWidget(self.scrollArea)
 
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
@@ -260,11 +274,11 @@ class Ui_Form(object):
 
         self.save_btn = QPushButton(Form)
         self.save_btn.setObjectName(u"save_btn")
-        sizePolicy7 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum)
-        sizePolicy7.setHorizontalStretch(0)
-        sizePolicy7.setVerticalStretch(0)
-        sizePolicy7.setHeightForWidth(self.save_btn.sizePolicy().hasHeightForWidth())
-        self.save_btn.setSizePolicy(sizePolicy7)
+        sizePolicy8 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum)
+        sizePolicy8.setHorizontalStretch(0)
+        sizePolicy8.setVerticalStretch(0)
+        sizePolicy8.setHeightForWidth(self.save_btn.sizePolicy().hasHeightForWidth())
+        self.save_btn.setSizePolicy(sizePolicy8)
 
         self.horizontalLayout_2.addWidget(self.save_btn)
 
@@ -335,8 +349,7 @@ class Ui_Form(object):
         self.delete_locale_btn.setToolTip(QCoreApplication.translate("Form", u"Delete language", None))
 #endif // QT_CONFIG(tooltip)
         self.delete_locale_btn.setText("")
-        self.header_text.setPlaceholderText(QCoreApplication.translate("Form", u"Header", None))
-        self.desc_text.setPlaceholderText(QCoreApplication.translate("Form", u"Description", None))
+        self.show_all_locales_checkBox.setText(QCoreApplication.translate("Form", u"Show All Languages", None))
 #if QT_CONFIG(tooltip)
         self.save_btn.setToolTip(QCoreApplication.translate("Form", u"Save data into files.", None))
 #endif // QT_CONFIG(tooltip)

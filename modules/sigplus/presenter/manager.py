@@ -1,13 +1,13 @@
 import os
 import re
 from typing import Optional
-from zoneinfo import available_timezones
 
 from PySide6.QtGui import QImageReader
 from PySide6.QtWidgets import QFileDialog, QTreeView, QAbstractItemView, QMessageBox
 
-from ..view.main_widget import MainWidget
 from ..view import lang_consts as lc
+from ..view.main_widget import MainWidget
+from ....common.settings import Settings
 
 
 class Manager:
@@ -16,6 +16,7 @@ class Manager:
     def start(cls):
         cls._widget = MainWidget()
         cls._widget.user_request.connect(cls._user_request_handler)
+        cls._widget.received_dir_list.connect(cls._import_data)
 
     @classmethod
     def _user_request_handler(cls, action: MainWidget.UserRequest):
@@ -27,14 +28,27 @@ class Manager:
 
 
     @classmethod
-    def _import_data(cls):
-        selected_folders = cls._select_multiple_folders()
+    def _import_data(cls, from_dirs: list[str] = []):
+        if not from_dirs:
+            selected_folders = set(cls._select_multiple_folders())
+        else:
+            selected_folders = set(from_dirs)
         if not selected_folders:
             return
 
         available_filetypes = [i.toStdString() for i in QImageReader.supportedImageFormats()]
-        data = {}
+        if Settings.add_subfolders_m1.value:
+            for folder in selected_folders.copy():
+                for root, dirs, files in os.walk(folder):
+                    selected_folders = selected_folders.union(os.path.join(root, d) for d in dirs)
 
+        if Settings.ignore_empty_folders_m1.value:
+            for folder in selected_folders.copy():
+                if any(entry.name.split(".")[-1] in available_filetypes for entry in os.scandir(folder) if entry.is_file()):
+                    continue
+                selected_folders.remove(folder)
+
+        data = {}
         for folder_path in selected_folders:
             data[folder_path] = {}
             filename_list = []
@@ -110,7 +124,7 @@ class Manager:
                     else:
                         created_files += 1
                 except Exception as e:
-                    QMessageBox.warning(cls._widget, lc.ERROR(), lc.CANNOT_SAVE_LABEL_FILE().format(path=path))
+                    QMessageBox.warning(cls._widget, lc.ERROR(), lc.CANNOT_SAVE_LABEL_FILE().format(path=file_path))
 
         QMessageBox.information(cls._widget, lc.REPORT(),
                                 lc.SAVING_REPORT().format(modified=modified_files, created=created_files))
@@ -174,4 +188,3 @@ class Manager:
             selected_folders = dialog.selectedFiles()
             return selected_folders
         return []
-

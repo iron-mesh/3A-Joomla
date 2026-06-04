@@ -11,6 +11,8 @@ QUESTION = LangConstant("Common", "Question")
 ADD_FOR_OTHER = LangConstant("Common", "Add for other folders?")
 REPORT = LangConstant("Common", "Report")
 SAVING_REPORT = LangConstant("Common", "Saving Report.\nFiles modified: {modified}\nFiles created: {created}")
+DESCRIPTION = LangConstant("Common", "Description")
+HEADER = LangConstant("Common", "Header")
 
 CANNOT_LOAD_LABEL_FILE = LangConstant("Error", "Cannot load label file: {path}")
 NOT_CORRECT_LOCALE = LangConstant("Error", "Not correct locale")

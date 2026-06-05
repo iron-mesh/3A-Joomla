@@ -102,7 +102,8 @@ class MainWidget(Singleton, QWidget):
         self._on_curr_file_changed()
 
     def _on_curr_file_changed(self):
-        if self.ui.file_list.count() == 0:
+        if not self.ui.file_list.currentItem() or \
+            not self.ui.folders_comboBox.count():
             return
 
         curr_folder = self.ui.folders_comboBox.currentText()
@@ -360,3 +361,6 @@ class MainWidget(Singleton, QWidget):
             event.accept()
         else:
             event.ignore()
+
+    def retranslate(self):
+        self.ui.retranslateUi(self)

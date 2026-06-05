@@ -5,6 +5,7 @@ from typing import Optional
 from PySide6.QtGui import QImageReader
 from PySide6.QtWidgets import QFileDialog, QTreeView, QAbstractItemView, QMessageBox
 
+from PyUB.utils import retranslate_nested_langconstants
 from ..view import lang_consts as lc
 from ..view.main_widget import MainWidget
 from ....common.settings import Settings
@@ -188,3 +189,8 @@ class Manager:
             selected_folders = dialog.selectedFiles()
             return selected_folders
         return []
+
+    @classmethod
+    def retranslate(cls):
+        retranslate_nested_langconstants(lc)
+        cls._widget.retranslate()

@@ -23,9 +23,9 @@ import os
 import re
 from enum import Enum
 
-from PySide6.QtCore import Signal, QLocale, QFileInfo
+from PySide6.QtCore import Signal, QLocale, QFileInfo, Slot
 from PySide6.QtGui import QPixmap, Qt
-from PySide6.QtWidgets import QWidget, QMessageBox, QFileIconProvider, QListWidgetItem, QVBoxLayout, QLineEdit, QLabel, \
+from PySide6.QtWidgets import QWidget, QMessageBox, QFileIconProvider, QListWidgetItem, QVBoxLayout, QLabel, \
     QSizePolicy
 from typing_extensions import Literal
 
@@ -33,6 +33,8 @@ from PyUB.bases import Singleton
 from . import lang_consts as lc
 from .dialogs.select_locale import SelectLocale
 from .forms.ui_main_widget import Ui_Form
+from .widgets.qlineedit_modified import QLineEditModified
+from ....common.settings import Settings
 
 
 class MainWidget(Singleton, QWidget):
@@ -147,21 +149,22 @@ class MainWidget(Singleton, QWidget):
         v_layout = QVBoxLayout(widget)
         v_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
 
-        n = 0
-        first_line_edit = None
+        self._line_edits_list = []
         for lang_fullname, locale in locales:
             curr_locale_data = self._data[curr_folder][curr_filename][locale]
 
-            header_lineEdit = QLineEdit()
+            header_lineEdit = QLineEditModified()
+            self._line_edits_list.append(header_lineEdit)
+            header_lineEdit.switching_requested.connect(self._on_qline_edit_switching)
             header_lineEdit.setPlaceholderText(lc.HEADER())
             header_lineEdit.setProperty("part", "header")
             header_lineEdit.setProperty("loc", locale)
             header_lineEdit.setText(curr_locale_data["header"])
             header_lineEdit.textChanged.connect(self._on_text_changed)
-            if n==0:
-                first_line_edit = header_lineEdit
 
-            description_lineEdit = QLineEdit()
+            description_lineEdit = QLineEditModified()
+            self._line_edits_list.append(description_lineEdit)
+            description_lineEdit.switching_requested.connect(self._on_qline_edit_switching)
             description_lineEdit.setPlaceholderText(lc.DESCRIPTION())
             description_lineEdit.setProperty("part", "desc")
             description_lineEdit.setProperty("loc", locale)
@@ -175,11 +178,11 @@ class MainWidget(Singleton, QWidget):
             v_layout.addWidget(header_lineEdit)
             v_layout.addWidget(description_lineEdit)
 
-            n += 1
-
         widget.adjustSize()
         self.ui.scrollArea.setWidget(widget)
-        first_line_edit.setFocus()
+        if self._line_edits_list:
+            self._line_edits_list[0].setFocus()
+            self._line_edits_list[0].selectAll()
 
     def _on_text_changed(self, s: str):
         curr_folder = self.ui.folders_comboBox.currentText()
@@ -364,3 +367,35 @@ class MainWidget(Singleton, QWidget):
 
     def retranslate(self):
         self.ui.retranslateUi(self)
+        self._update_input_widgets()
+
+    @Slot(str)
+    def _on_qline_edit_switching(self, direction: Literal["n", "p"]):
+        if not self._line_edits_list:
+            return
+
+        curr_index = self._line_edits_list.index(self.sender())
+        max_index = len(self._line_edits_list) - 1
+        if Settings.fields_switch_mode.value == 0 and \
+            (curr_index == 0 or curr_index == max_index):
+            if direction == "n" and curr_index == max_index:
+                self._on_switch_file("down")
+                return
+            elif direction == "p" and curr_index == 0:
+                self._on_switch_file("up")
+                return
+
+        new_index = 0
+        match direction:
+            case "n":
+                if curr_index < max_index:
+                    new_index = curr_index + 1
+                else:
+                    new_index = 0
+            case "p":
+                if curr_index > 0:
+                    new_index = curr_index - 1
+                else:
+                    new_index = max_index
+        self._line_edits_list[new_index].setFocus()
+        self._line_edits_list[new_index].selectAll()

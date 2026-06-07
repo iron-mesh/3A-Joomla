@@ -17,9 +17,9 @@ class QLineEditModified(QLineEdit):
         super().__init__(parent)
 
     def keyPressEvent(self, event):
+        super().keyPressEvent(event)
         if (event.key() == Qt.Key.Key_Return or event.key() == Qt.Key.Key_Enter):
             if event.modifiers() == Qt.KeyboardModifier.ShiftModifier:
                 self.switching_requested.emit("p")
             else:
                 self.switching_requested.emit("n")
-        super().keyPressEvent(event)

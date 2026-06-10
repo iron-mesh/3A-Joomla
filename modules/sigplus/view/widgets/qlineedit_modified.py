@@ -6,9 +6,9 @@ class QLineEditModified(QLineEdit):
     """Provides modifications to a QLineEdit.
 
     Attributes:
-        switching_requested (Signal(str)): sent when the user presses the enter button, passes:
-            -"n": if requested next widget
-            -"p": if requested previous widget
+        switching_requested (Signal(str)): sent when the user pressed the key Enter, passes:
+            -"n": "Enter" pressed
+            -"p": "Shift+Enter" pressed
     """
 
     switching_requested = Signal(str)

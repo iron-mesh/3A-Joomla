@@ -154,6 +154,7 @@ class MainWidget(Singleton, QWidget):
             curr_locale_data = self._data[curr_folder][curr_filename][locale]
 
             header_lineEdit = QLineEditModified()
+            header_lineEdit.setToolTip(lc.INPUT_FIELD_TIP())
             self._line_edits_list.append(header_lineEdit)
             header_lineEdit.switching_requested.connect(self._on_qline_edit_switching)
             header_lineEdit.setPlaceholderText(lc.HEADER())
@@ -163,6 +164,7 @@ class MainWidget(Singleton, QWidget):
             header_lineEdit.textChanged.connect(self._on_text_changed)
 
             description_lineEdit = QLineEditModified()
+            description_lineEdit.setToolTip(lc.INPUT_FIELD_TIP())
             self._line_edits_list.append(description_lineEdit)
             description_lineEdit.switching_requested.connect(self._on_qline_edit_switching)
             description_lineEdit.setPlaceholderText(lc.DESCRIPTION())

@@ -21,15 +21,14 @@
 #  SOFTWARE.
 import os
 import re
-from enum import Enum
-
 from PySide6.QtCore import Signal, QLocale, QFileInfo, Slot
 from PySide6.QtGui import QPixmap, Qt
 from PySide6.QtWidgets import QWidget, QMessageBox, QFileIconProvider, QListWidgetItem, QVBoxLayout, QLabel, \
     QSizePolicy
-from typing_extensions import Literal
-
 from PyUB.bases import Singleton
+from enum import Enum
+from typing import Literal
+
 from . import lang_consts as lc
 from .dialogs.select_locale import SelectLocale
 from .forms.ui_main_widget import Ui_Form
